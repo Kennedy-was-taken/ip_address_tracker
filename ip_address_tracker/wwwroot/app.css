@@ -1,6 +1,29 @@
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+@font-face{
+    font-family: "Rubik";
+    src: url(./fonts/Rubik/Rubik-VariableFont_wght.ttf)
 }
+
+:root{
+
+    --Very_Dark_Gray: hsl(0, 0%, 17%);
+    --Dark_Gray: hsl(0, 0%, 59%);
+
+    --Weights_400: 400;
+    --Weights_500: 500;
+    --Weights_700: 700;
+}
+
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Rubik';
+}
+
+
+
+
 
 a, .btn-link {
     color: #006bb7;
