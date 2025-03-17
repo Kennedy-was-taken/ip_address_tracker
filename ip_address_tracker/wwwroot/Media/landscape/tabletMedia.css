@@ -1,0 +1,29 @@
+﻿
+
+@media only screen and (min-width: 950px) and (orientation: landscape) {
+
+    #header {
+        font-size: 2.81vw;
+    }
+
+    #input_container {
+        display: flex;
+        flex-direction: row;
+        width: calc(100% - 56.06vw);
+        height: 6.9vh;
+        border-radius: 1vw;
+    }
+
+    #user_input {
+        font-size: 1.5vw;
+        padding-left: 2.58vw;
+        border-top-left-radius: 1vw;
+        border-bottom-left-radius: 1vw;
+    }
+
+    #submit {
+        font-size: 2.37vw;
+        border-top-right-radius: 1vw;
+        border-bottom-right-radius: 1vw;
+    }
+}

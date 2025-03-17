@@ -2,6 +2,24 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<section id="parent" class="parent">
 
-Welcome to your new app.
+    @* Top container *@
+    <div id="top_container" class="top_container">
+
+        <p id="header" class="header">IP Address Tracker</p>
+
+        <div id="input_container" class="input_container">
+            <input id="user_input" class="user_input" @bind="ip_address" placeholder="Search for any IP address" maxlength="15" />
+            <button id="submit" class="submit" type="submit" > > </button>
+        </div>
+    </div>
+
+    @* Bottom container *@
+    <div id="bottom_container" class="bottom_container">
+
+        
+    </div>
+
+</section>
+

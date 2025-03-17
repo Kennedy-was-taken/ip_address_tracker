@@ -1,0 +1,24 @@
+﻿
+
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+
+    #header {
+        font-size: 3.81vw;
+    }
+
+    #input_container {
+        border-radius: 2vw;
+    }
+
+    #user_input {
+        font-size: 2.5vw;
+        padding-left: 2.58vw;
+        border-top-left-radius: 2vw;
+        border-bottom-left-radius: 2vw;
+    }
+
+    #submit {
+        border-top-right-radius: 2vw;
+        border-bottom-right-radius: 2vw;
+    }
+}
