@@ -79,5 +79,17 @@
     outline: none;
 }
 
+.bottom_container{
+    height: 100%;
+    width: 100%;
+    background-color: aqua;
+}
+
+
+.map{
+    height: inherit;
+    width: inherit;
+}
+
 
 
