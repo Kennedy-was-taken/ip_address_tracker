@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\Kennedy\Documents\Projects\Frontend_Mentor\vs_2022\ip_address_tracker\ip_address_tracker\Components\Pages\Home.razor.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ip_address_tracker.Interfaces;
+using ip_address_tracker.Model;
+using ip_address_tracker.Services;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using System.ComponentModel;
+using System.Diagnostics;
+
+namespace ip_address_tracker.Components.Pages
+{
+    public partial class Home : ComponentBase, IAsyncDisposable
+    {
+        [Inject]
+        private IJSRuntime? JS { get; set; }
+
+        private readonly IValidateInterface validate;
+        private readonly MapService mapService;
+
+        // binding value
+        private string search_value = string.Empty;
+        private string ip_address = string.Empty;
+        private string location = string.Empty;
+        private string timezone = string.Empty;
+        private string isp = string.Empty;
+
+
+
+        public Home()
+        {
+            validate = new ValidateService();
+            mapService = new MapService();
+        }
+
+
+        //private Lazy&lt;IJSObjectReference&gt; mapJsModule = new();
+        private Lazy&lt;IJSObjectReference&gt;? mapJsModule = new();
+
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender &amp;&amp; JS is not null)
+            {
+                mapJsModule = new(await JS.InvokeAsync&lt;IJSObjectReference&gt;(&quot;import&quot;, &quot;./js/map_function.js&quot;));
+
+                await mapJsModule.Value.InvokeVoidAsync(&quot;initMap&quot;);
+
+                ServiceModel&lt;ContainerModel&gt; infoFromIP = new();
+
+                string publicIP = await mapService.GetPublicIP();
+
+                infoFromIP = await GetLocationByIP(publicIP);
+
+                await results(infoFromIP);
+
+                StateHasChanged();
+
+            }
+
+        }
+
+        // determines if its an IP address or domain name
+        public async Task HandleButtonClick()
+        {
+            if (!string.IsNullOrEmpty(this.search_value))
+            {
+                ServiceModel&lt;ContainerModel&gt; container = new();
+                bool isIPAddress = validate.isIPAddress(this.search_value);
+
+                if (isIPAddress)
+                {
+                    container = await GetLocationByIP(search_value);
+                }
+
+                else
+                {
+                    container = await GetLocationByDomainName(search_value);
+                }
+
+                await results(container);
+
+            }
+        }
+
+        private async Task results(ServiceModel&lt;ContainerModel&gt; info)
+        {
+            if (info != null &amp; info.isSuccess)
+            {
+                await SetLocation(info.Data.location.lat, info.Data.location.lng, mapJsModule);
+                displayLocation(info);
+
+            }
+
+            // come back
+            else
+            {
+                setErrorMessage(info.message);
+            }
+        }
+
+        private async Task&lt;ServiceModel&lt;ContainerModel&gt;&gt; GetLocationByIP(string search_value)
+        {
+
+            return await mapService.GetLocationIP(search_value);
+        }
+
+        private async Task&lt;ServiceModel&lt;ContainerModel&gt;&gt; GetLocationByDomainName(string search_value)
+        {
+
+            return await mapService.GetLocationDomain(search_value);
+        }
+
+        private void displayLocation(ServiceModel&lt;ContainerModel&gt; info)
+        {
+
+            if (info.Data != null)
+            {
+                ip_address = info.Data.ip;
+                location = $&quot;{info.Data.location?.country}, {info.Data.location?.region}&quot;;
+                timezone = $&quot;UTC {info.Data.location?.timezone}&quot;;
+                if (info.Data.isp is null || info.Data.isp.Equals(&quot;&quot;) || info.Data.isp.Equals(&quot; &quot;))
+                {
+                    isp = &quot;No ISP&quot;;
+                }
+                else
+                {
+                    isp = info.Data.isp;
+                }
+                
+
+            }
+        }
+
+        // Javascript methods
+        private async Task setErrorMessage(string message)
+        {
+            await mapJsModule.Value.InvokeVoidAsync(&quot;error&quot;, message);
+        }
+
+        private async Task SetLocation(double lat, double lng, Lazy&lt;IJSObjectReference&gt; mapJsModule)
+        {
+            await mapJsModule.Value.InvokeVoidAsync(&quot;coordinates&quot;, lat, lng);
+            Debug.WriteLine(&quot;It made it here&quot;);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            if (mapJsModule.IsValueCreated)
+            {
+                try
+                {
+                    await mapJsModule.Value.DisposeAsync();
+                }
+
+                catch (Exception)
+                {
+
+                }
+
+            }
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,34,14,38,0],[14,39,14,43,0],[20,9,20,52,0],[21,9,21,50,0],[22,9,22,48,0],[23,9,23,48,0],[24,9,24,43,0],[28,9,28,22,0],[29,9,29,10,0],[30,13,30,46,0],[31,13,31,43,0],[32,9,32,10,0],[36,9,36,63,0],[40,9,40,10,0],[41,13,41,47,0],[42,13,42,14,0],[43,17,43,111,0],[45,17,45,68,0],[47,17,47,65,0],[49,17,49,66,0],[51,17,51,62,0],[53,17,53,43,0],[55,17,55,35,0],[57,13,57,14,0],[59,9,59,10,0],[63,9,63,10,0],[64,13,64,58,0],[65,13,65,14,0],[66,17,66,64,0],[67,17,67,76,0],[69,17,69,33,0],[70,17,70,18,0],[71,21,71,69,0],[72,17,72,18,0],[75,17,75,18,0],[76,21,76,77,0],[77,17,77,18,0],[79,17,79,42,0],[81,13,81,14,0],[82,9,82,10,0],[85,9,85,10,0],[86,13,86,47,0],[87,13,87,14,0],[88,17,88,96,0],[89,17,89,39,0],[91,13,91,14,0],[95,13,95,14,0],[96,17,96,47,0],[97,13,97,14,0],[98,9,98,10,0],[101,9,101,10,0],[103,13,103,65,0],[104,9,104,10,0],[107,9,107,10,0],[109,13,109,69,0],[110,9,110,10,0],[113,9,113,10,0],[115,13,115,35,0],[116,13,116,14,0],[117,17,117,43,0],[118,17,118,91,0],[119,17,119,66,0],[120,17,120,100,0],[121,17,121,18,0],[122,21,122,36,0],[123,17,123,18,0],[125,17,125,18,0],[126,21,126,41,0],[127,17,127,18,0],[130,13,130,14,0],[131,9,131,10,0],[135,9,135,10,0],[136,13,136,71,0],[137,9,137,10,0],[140,9,140,10,0],[141,13,141,78,0],[142,13,142,48,0],[143,9,143,10,0],[146,9,146,10,0],[147,13,147,44,0],[148,13,148,14,0],[150,17,150,18,0],[151,21,151,60,0],[152,17,152,18,0],[154,17,154,34,0],[155,17,155,18,0],[157,17,157,18,0],[159,13,159,14,0],[160,9,160,10,0]]);
+    </script>
+  </body>
+</html>

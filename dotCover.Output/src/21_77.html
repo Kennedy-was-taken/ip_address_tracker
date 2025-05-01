@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\Kennedy\Documents\Projects\Frontend_Mentor\vs_2022\ip_address_tracker\ip_address_tracker\Components\Pages\Error.razor</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+@page &quot;/Error&quot;
+@using System.Diagnostics
+
+&lt;PageTitle&gt;Error&lt;/PageTitle&gt;
+
+&lt;h1 class=&quot;text-danger&quot;&gt;Error.&lt;/h1&gt;
+&lt;h2 class=&quot;text-danger&quot;&gt;An error occurred while processing your request.&lt;/h2&gt;
+
+@if (ShowRequestId)
+{
+    &lt;p&gt;
+        &lt;strong&gt;Request ID:&lt;/strong&gt; &lt;code&gt;@RequestId&lt;/code&gt;
+    &lt;/p&gt;
+}
+
+&lt;h3&gt;Development Mode&lt;/h3&gt;
+&lt;p&gt;
+    Swapping to &lt;strong&gt;Development&lt;/strong&gt; environment will display more detailed information about the error that occurred.
+&lt;/p&gt;
+&lt;p&gt;
+    &lt;strong&gt;The Development environment shouldn&#39;t be enabled for deployed applications.&lt;/strong&gt;
+    It can result in displaying sensitive information from exceptions to end users.
+    For local debugging, enable the &lt;strong&gt;Development&lt;/strong&gt; environment by setting the &lt;strong&gt;ASPNETCORE_ENVIRONMENT&lt;/strong&gt; environment variable to &lt;strong&gt;Development&lt;/strong&gt;
+    and restarting the app.
+&lt;/p&gt;
+
+@code{
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    private string? RequestId { get; set; }
+    private bool ShowRequestId =&gt; !string.IsNullOrEmpty(RequestId);
+
+    protected override void OnInitialized() =&gt;
+        RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,2,9,20,0],[10,1,10,2,0],[14,1,14,2,0],[29,40,29,44,0],[29,45,29,49,0],[31,33,31,37,0],[31,38,31,42,0],[32,35,32,67,0],[35,9,35,73,0]]);
+    </script>
+  </body>
+</html>

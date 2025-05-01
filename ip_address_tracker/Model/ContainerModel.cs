@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ip_address_tracker.Model
 {
-    public class Container
+    public class ContainerModel
     {
         public string ip { get; set; } = string.Empty;
 

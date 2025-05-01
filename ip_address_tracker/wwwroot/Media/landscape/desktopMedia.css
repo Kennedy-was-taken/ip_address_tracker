@@ -9,21 +9,33 @@
     #input_container {
         width: calc(100% - 60.06vw);
         height: 6.5vh;
-        border-radius: 1vw;
+        border-radius: 0.5vw;
+    }
+
+    #info_container {
+        border-radius: 0.5vw;
+        letter-spacing: 0.2vw;
     }
 
     #user_input {
         font-size: 1.2vw;
         padding-left: 2.28vw;
-        border-top-left-radius: 1vw;
-        border-bottom-left-radius: 1vw;
+        border-top-right-radius: 0.5vw;
+        border-bottom-right-radius: 0.5vw;
     }
 
     #submit {
         width: 10.15vw;
         font-size: 1.37vw;
-        border-top-right-radius: 1vw;
-        border-bottom-right-radius: 1vw;
+        border-radius: 0.5vw;
+    }
+
+    #sub_header {
+        font-size: 0.6vw;
+    }
+
+    #value {
+        font-size: 1.3vw;
     }
 
 }

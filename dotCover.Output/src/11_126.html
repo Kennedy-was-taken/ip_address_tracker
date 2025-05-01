@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\Kennedy\Documents\Projects\Frontend_Mentor\vs_2022\ip_address_tracker\TestAPI\Services\ValidateTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ip_address_tracker.Interfaces;
+using ip_address_tracker.Services;
+using System.Diagnostics;
+
+namespace TestAPI.Services
+{
+    [TestCaseOrderer(
+    ordererTypeName: &quot;TestAPI.PriorityOrderer&quot;,
+    ordererAssemblyName: &quot;TestAPI&quot;)]
+    public class ValidateTest
+    {
+        private readonly ValidateService validate;
+
+        public ValidateTest()
+        {
+            validate = new ValidateService();
+        }
+
+        [Fact]
+        [TestPriority(1)]
+        public void PassedIPAddressTrue()
+        {
+            bool containsIP = validate.isIPAddress(&quot;8.8.8.8&quot;);
+
+            if (containsIP)
+            {
+                Debug.WriteLine(&quot;Is an IP Address&quot;);
+                Assert.True(containsIP);
+            }
+
+            else
+            {
+                Debug.WriteLine(&quot;Isn&#39;t an IP Address&quot;);
+                Assert.Fail();
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(2)]
+        public void PassedIPAddressFalse()
+        {
+            bool containsIP = validate.isIPAddress(&quot;8.dfg.8.ght&quot;);
+
+            if (containsIP)
+            {
+                Debug.WriteLine(&quot;Is an IP Address&quot;);
+                Assert.Fail();
+            }
+
+            else
+            {
+                Debug.WriteLine(&quot;Isn&#39;t an IP Address&quot;);
+                Assert.False(containsIP);
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(3)]
+        public void PassedDomainTrue()
+        {
+            bool containsDomainName = validate.isIPAddress(&quot;google.com&quot;);
+
+            if (!containsDomainName)
+            {
+                Debug.WriteLine(&quot;Is a Domain Name&quot;);
+                Assert.True(true);
+            }
+
+            else
+            {
+                Debug.WriteLine(&quot;Isn&#39;t a Domain Name&quot;);
+                Assert.Fail();
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(4)]
+        public void PassedDomaninfalse()
+        {
+            bool containsDomainName = validate.isIPAddress(&quot;8.8.8.8&quot;);
+
+            if (containsDomainName)
+            {
+                Debug.WriteLine(&quot;Isn&#39;t a Domain Name&quot;);
+                Assert.False(!containsDomainName);
+            }
+
+            else
+            {
+                Debug.WriteLine(&quot;Is a Domain Name&quot;);
+                Assert.Fail();
+            }
+
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[14,9,14,30,1],[15,9,15,10,1],[16,13,16,46,1],[17,9,17,10,1],[22,9,22,10,1],[23,13,23,63,1],[25,13,25,28,1],[26,13,26,14,1],[27,17,27,53,1],[28,17,28,41,1],[29,13,29,14,1],[32,13,32,14,0],[33,17,33,56,0],[34,17,34,31,0],[35,13,35,14,0],[37,9,37,10,1],[42,9,42,10,1],[43,13,43,67,1],[45,13,45,28,1],[46,13,46,14,0],[47,17,47,53,0],[48,17,48,31,0],[49,13,49,14,0],[52,13,52,14,1],[53,17,53,56,1],[54,17,54,42,1],[55,13,55,14,1],[57,9,57,10,1],[62,9,62,10,1],[63,13,63,74,1],[65,13,65,37,1],[66,13,66,14,1],[67,17,67,53,1],[68,17,68,35,1],[69,13,69,14,1],[72,13,72,14,0],[73,17,73,56,0],[74,17,74,31,0],[75,13,75,14,0],[77,9,77,10,1],[82,9,82,10,1],[83,13,83,71,1],[85,13,85,36,1],[86,13,86,14,1],[87,17,87,56,1],[88,17,88,51,1],[89,13,89,14,1],[92,13,92,14,0],[93,17,93,53,0],[94,17,94,31,0],[95,13,95,14,0],[97,9,97,10,1]]);
+    </script>
+  </body>
+</html>

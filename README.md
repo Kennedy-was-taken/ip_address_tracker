@@ -1,7 +1,7 @@
-![Process tab](https://img.shields.io/badge/status-in_progress-F14A00)
+<!-- ![Process tab](https://img.shields.io/badge/status-in_progress-F14A00) -->
 <!-- ![updates](https://img.shields.io/badge/future_updates-yes-4DA1A9) -->
-<!-- ![Process tab](https://img.shields.io/badge/status-Complete-5CB338) -->
-<!-- ![updates](https://img.shields.io/badge/future_updates-no-8D0B41) -->
+![Process tab](https://img.shields.io/badge/status-Complete-5CB338)
+![updates](https://img.shields.io/badge/future_updates-no-8D0B41)
 
 # Frontend Mentor - IP address tracker solution
 
@@ -10,6 +10,7 @@ This is a solution to the [IP address tracker challenge on Frontend Mentor](http
 ## Table of contents
 
 - [Overview](#overview)
+  - [Required](#required)
   - [The challenge](#the-challenge)
   - [Screenshot](#screenshot)
   - [Links](#links)
@@ -19,6 +20,13 @@ This is a solution to the [IP address tracker challenge on Frontend Mentor](http
 - [Author](#author)
 
 ## Overview
+
+### Required
+
+You will need : 
+- An internet connection.
+- SDK 9 installed.
+- .net Core installed.
 
 ### The challenge
 

@@ -4,14 +4,16 @@
 
     #header {
         font-size: 2.81vw;
+        margin-bottom: 2.40vh;
     }
 
     #input_container {
         display: flex;
         flex-direction: row;
-        width: calc(100% - 56.06vw);
-        height: 6.9vh;
+        margin: 0px 8vw;
+        width: calc(100% - 55.24vw);
         border-radius: 1vw;
+        top: 23vh;
     }
 
     #user_input {
@@ -25,5 +27,42 @@
         font-size: 2.37vw;
         border-top-right-radius: 1vw;
         border-bottom-right-radius: 1vw;
+        width: 8.15vw;
+    }
+
+    #content_container {
+        display: flex;
+        flex-direction: column;
+        width: 15vw;
+    }
+
+    #info_container {
+        display: flex;
+        flex-direction: row;
+        padding: 2.62vh 0;
+        margin: 0 10.34vw;
+        width: calc(100% - 20.68vw);
+        border-radius: 1.5vw;
+        top: 22vh;
+        column-gap: 2vw;
+        justify-content: center;
+        letter-spacing: 0.5vw;
+    }
+
+    #sub_header {
+        font-size: 0.8vw;
+    }
+
+    #value {
+        font-size: 1.5vw;
+    }
+
+    #border {
+        width: unset;
+        background-color: white;
+        border: 1px solid var(--Very_Dark_Gray) !important;
+        opacity: 0.1;
+        margin: 0.5vh 0;
+        height: 5.5vh;
     }
 }

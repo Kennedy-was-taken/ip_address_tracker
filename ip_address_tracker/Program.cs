@@ -1,10 +1,21 @@
 using ip_address_tracker.Components;
+using ip_address_tracker.Interfaces;
+using ip_address_tracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Adding logger services
+//builder.Logging.ClearProviders();
+//builder.Logging.AddDebug();
+//builder.Logging.AddConsole();
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddTransient<IValidateInterface, ValidateService>();
+builder.Services.AddTransient<MapService>();
 
 var app = builder.Build();
 
@@ -25,4 +36,4 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.Run();
+await app.RunAsync();

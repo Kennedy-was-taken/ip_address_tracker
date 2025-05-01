@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\Kennedy\Documents\Projects\Frontend_Mentor\vs_2022\ip_address_tracker\TestAPI\API\GetApi.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ip_address_tracker.Model;
+using ip_address_tracker.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
+using Newtonsoft.Json;
+using System.Net;
+using System.Diagnostics;
+
+namespace TestAPI.API
+{
+    [TestCaseOrderer(
+    ordererTypeName: &quot;TestAPI.PriorityOrderer&quot;,
+    ordererAssemblyName: &quot;TestAPI&quot;)]
+    public class GetApi
+    {
+        MapService? mapService;
+
+        private string ip_address = string.Empty;
+
+        private string api_key = &quot;apiKey=at_vaFBN1fKp81LTOLx8xs2Ix5V0OOJ1&quot;;
+        private string bare_url = &quot;https://geo.ipify.org/api/v2/country,city?&quot;;
+
+        [Fact]
+        [TestPriority(1)]
+        public async Task TestTrue()
+        {
+
+            //var logger = LoggerFactory.Create();
+            ServiceModel&lt;ContainerModel&gt; serviceResponds = new ServiceModel&lt;ContainerModel&gt;();
+
+            using (HttpClient client = new())
+            {
+
+                string ip = &quot;8.8.8.8&quot;;
+                string url = bare_url + api_key + $&quot;&amp;ipAddress={ip}&quot;;
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                HttpStatusCode statusCode = response.StatusCode;
+                int statusCodeNumber = (int)statusCode;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    ContainerModel? dataContent = JsonConvert.DeserializeObject&lt;ContainerModel&gt;(content);
+
+                    if ( dataContent is not null &amp;&amp; response.RequestMessage is not null) {
+
+                        serviceResponds.Data = dataContent;
+                        serviceResponds.isSuccess = true;
+                        serviceResponds.statusCode = statusCodeNumber;
+                        serviceResponds.message = &quot;Success&quot;;
+
+                    }
+                }
+
+                else if (response.StatusCode.Equals(400))
+                {
+                    serviceResponds.Data = null;
+                    serviceResponds.isSuccess = false;
+                    serviceResponds.statusCode = statusCodeNumber;
+                    serviceResponds.message = $&quot; : Could not find IP Address or Domain name&quot;;
+                }
+
+                else if (response.StatusCode.Equals(500))
+                {
+                    serviceResponds.Data = null;
+                    serviceResponds.isSuccess = false;
+                    serviceResponds.statusCode = statusCodeNumber;
+                    serviceResponds.message = $&quot; : Content Developer&quot;;
+                }
+
+            }
+
+            if (serviceResponds.isSuccess)
+            {
+                Debug.WriteLine(serviceResponds.message);
+                Assert.True(serviceResponds.isSuccess);
+            }
+
+            else
+            {
+                Debug.WriteLine(serviceResponds.message);
+                Assert.Fail($&quot;{serviceResponds.message}&quot;);
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(2)]
+        public async Task GetPublicIPTest()
+        {
+            mapService = new();
+
+            string publicIP = await mapService.GetPublicIP();
+
+            if (publicIP is not null || publicIP != &quot;&quot;)
+            {
+                Console.WriteLine(publicIP);
+                Assert.True(true);
+            }
+
+            else
+            {
+                Assert.Fail(&quot;public IP is null or empty&quot;);
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(3)]
+        public async Task GetLocationIPTest_True()
+        {
+            mapService = new();
+
+            ServiceModel&lt;ContainerModel&gt;? serviceResponse = await mapService.GetLocationIP(&quot;8.8.8.8&quot;);
+
+            if (serviceResponse.isSuccess)
+            {
+                
+                Assert.True(serviceResponse.isSuccess);
+            }
+
+            else
+            {
+                Assert.Fail($&quot;{serviceResponse.message}&quot;);
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(4)]
+        public async Task GetLocationIPTest_False()
+        {
+            mapService = new();
+
+            ServiceModel&lt;ContainerModel&gt;? serviceResponse = await mapService.GetLocationIP(&quot;8.8&quot;);
+
+            if (serviceResponse.isSuccess)
+            {
+                Assert.Fail($&quot;{serviceResponse.message}&quot;);
+                
+            }
+
+            else
+            {
+                Assert.False(serviceResponse.isSuccess);
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(5)]
+        public async Task GetLocationDomain_True()
+        {
+            mapService = new();
+
+            ServiceModel&lt;ContainerModel&gt;? serviceResponse = await mapService.GetLocationDomain(&quot;google.com&quot;);
+
+            if (serviceResponse.isSuccess)
+            {
+
+                Assert.True(serviceResponse.isSuccess);
+            }
+
+            else
+            {
+                Assert.Fail($&quot;{serviceResponse.message}&quot;);
+            }
+
+        }
+
+        [Fact]
+        [TestPriority(6)]
+        public async Task GetLocationDomain_False()
+        {
+            mapService = new();
+
+            ServiceModel&lt;ContainerModel&gt;? serviceResponse = await mapService.GetLocationDomain(&quot;lifeisrough.iop&quot;);
+
+            if (serviceResponse.isSuccess)
+            {
+                Assert.Fail($&quot;{serviceResponse.message}&quot;);
+
+            }
+
+            else
+            {
+                Assert.False(serviceResponse.isSuccess);
+            }
+
+        }
+
+        //[Fact]
+        //[TestPriority(3)]
+        //public async Task SetLocationTest()
+        //{
+        //    mapService = new();
+        //}
+
+        //public async Task setLazyLoad()
+        //{
+        //    mapJsModule = new();
+
+        //    mapJsModule = new(await JS.InvokeAsync&lt;IJSObjectReference&gt;(&quot;import&quot;, &quot;./js/map_function.js&quot;));
+
+
+        //}
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,50,1],[20,9,20,76,1],[21,9,21,80,1],[26,9,26,10,1],[29,13,29,95,1],[31,20,31,45,1],[32,13,32,14,1],[34,17,34,39,1],[35,17,35,70,1],[37,17,37,75,1],[38,17,38,65,1],[39,17,39,56,1],[41,17,41,50,1],[42,17,42,18,1],[43,21,43,81,1],[45,21,45,106,1],[47,21,47,89,1],[47,90,47,91,1],[49,25,49,60,1],[50,25,50,58,1],[51,25,51,71,1],[52,25,52,61,1],[54,21,54,22,1],[55,17,55,18,1],[57,22,57,58,0],[58,17,58,18,0],[59,21,59,49,0],[60,21,60,55,0],[61,21,61,67,0],[62,21,62,94,0],[63,17,63,18,0],[65,22,65,58,0],[66,17,66,18,0],[67,21,67,49,0],[68,21,68,55,0],[69,21,69,67,0],[70,21,70,71,0],[71,17,71,18,0],[73,13,73,14,1],[75,13,75,43,1],[76,13,76,14,1],[77,17,77,58,1],[78,17,78,56,1],[79,13,79,14,1],[82,13,82,14,0],[83,17,83,58,0],[84,17,84,59,0],[85,13,85,14,0],[87,9,87,10,1],[92,9,92,10,1],[93,13,93,32,1],[95,13,95,62,1],[97,13,97,56,1],[98,13,98,14,1],[99,17,99,45,1],[100,17,100,35,1],[101,13,101,14,1],[104,13,104,14,0],[105,17,105,59,0],[106,13,106,14,0],[108,9,108,10,1],[113,9,113,10,1],[114,13,114,32,1],[116,13,116,103,1],[118,13,118,43,1],[119,13,119,14,1],[121,17,121,56,1],[122,13,122,14,1],[125,13,125,14,0],[126,17,126,59,0],[127,13,127,14,0],[129,9,129,10,1],[134,9,134,10,1],[135,13,135,32,1],[137,13,137,99,1],[139,13,139,43,1],[140,13,140,14,0],[141,17,141,59,0],[143,13,143,14,0],[146,13,146,14,1],[147,17,147,57,1],[148,13,148,14,1],[150,9,150,10,1],[155,9,155,10,1],[156,13,156,32,1],[158,13,158,110,1],[160,13,160,43,1],[161,13,161,14,1],[163,17,163,56,1],[164,13,164,14,1],[167,13,167,14,0],[168,17,168,59,0],[169,13,169,14,0],[171,9,171,10,1],[176,9,176,10,1],[177,13,177,32,1],[179,13,179,115,1],[181,13,181,43,1],[182,13,182,14,0],[183,17,183,59,0],[185,13,185,14,0],[188,13,188,14,1],[189,17,189,57,1],[190,13,190,14,1],[192,9,192,10,1]]);
+    </script>
+  </body>
+</html>

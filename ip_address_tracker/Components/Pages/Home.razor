@@ -11,9 +11,42 @@
         <p id="header" class="header">IP Address Tracker</p>
 
         <div id="input_container" class="input_container">
-            <input id="user_input" class="user_input" @bind="ip_address" placeholder="Search for any IP address" maxlength="15" />
+            <input id="user_input" class="user_input" @bind="search_value" placeholder="Search for any IP address" maxlength="15" />
             <button id="submit" class="submit" type="submit" @onclick="HandleButtonClick"> > </button>
         </div>
+    </div>
+
+    @* index : 2, informative block *@
+    <div id="info_container" class="info_container">
+
+        <div id="content_container" class="content_container">
+            <label id="sub_header" class="sub_header">IP ADDRESS</label>
+            <label id="value" placeholder="8.8.8.8" class="value">@ip_address</label>
+
+        </div>
+
+        <di id="border" class="border"></di>
+
+        <div id="content_container" class="content_container">
+            <label id="sub_header" class="sub_header">LOCATION</label>
+            <label id="value" placeholder="Brooklyn, NY 10001" class="value">@location</label>
+        </div>
+
+        <div id="border" class="border"></div>
+
+        <div id="content_container" class="content_container">
+            <label id="sub_header" class="sub_header">TIMEZONE</label>
+            <label id="value" placeholder="UTC -05:00" class="value">@timezone</label>
+        </div>
+
+        <div id="border" class="border"></div>
+
+        <div id="content_container" class="content_container">
+
+            <label id="sub_header" class="sub_header">ISP</label>
+            <label id="value" placeholder="SpaceX Starlink" class="value">@isp</label>
+        </div>
+
     </div>
 
     @* Bottom container *@

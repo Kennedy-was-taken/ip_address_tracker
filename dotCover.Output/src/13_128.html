@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\Kennedy\Documents\Projects\Frontend_Mentor\vs_2022\ip_address_tracker\ip_address_tracker\Services\MapService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+
+using ip_address_tracker.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net;
+
+namespace ip_address_tracker.Services
+{
+    public class MapService 
+    {
+
+        private readonly string api_key = &quot;apiKey=at_vaFBN1fKp81LTOLx8xs2Ix5V0OOJ1&quot;;
+        private readonly string bare_url = &quot;https://geo.ipify.org/api/v2/country,city?&quot;;
+
+        public async Task&lt;string&gt; GetPublicIP()
+        {
+            string? publicIP = string.Empty;
+
+            using (HttpClient client = new())
+            {
+
+                HttpResponseMessage response = await client.GetAsync(&quot;https://api.ipify.org?format=json&quot;);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    publicIP = (string) JObject.Parse(content)[&quot;ip&quot;];
+
+                }
+            }
+
+            return publicIP;
+        }
+
+        public async Task&lt;ServiceModel&lt;ContainerModel&gt;&gt; GetLocationIP(string ipAddress)
+        {
+
+            ServiceModel&lt;ContainerModel&gt;? serviceResponse = new();
+
+            using (HttpClient client = new())
+            {
+
+                string url = bare_url + api_key + $&quot;&amp;ipAddress={ipAddress}&quot;;
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                HttpStatusCode statusCode = response.StatusCode;
+                int statusCodeNumber = (int)statusCode;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    ContainerModel? dataContent = JsonConvert.DeserializeObject&lt;ContainerModel&gt;(content);
+
+                    if (dataContent is not null)
+                    {
+                        serviceResponse.Data = dataContent;
+                        serviceResponse.isSuccess = true;
+                        serviceResponse.statusCode = statusCodeNumber;
+                        serviceResponse.message = $&quot;Success&quot;;
+                    }
+
+                }
+
+                else if (statusCodeNumber.Equals(400))
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.isSuccess = false;
+                    serviceResponse.statusCode = statusCodeNumber;
+                    serviceResponse.message = $&quot;Could not find IP Address&quot;;
+                }
+
+                else
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.isSuccess = false;
+                    serviceResponse.statusCode = statusCodeNumber;
+                    serviceResponse.message = $&quot;Ensure the right IP Address is entered&quot;;
+                }
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task&lt;ServiceModel&lt;ContainerModel&gt;&gt; GetLocationDomain(string domain)
+        {
+            ServiceModel&lt;ContainerModel&gt;? serviceResponse = new();
+
+            using (HttpClient client = new())
+            {
+
+                string url = bare_url + api_key + $&quot;&amp;domain={domain}&quot;;
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                HttpStatusCode statusCode = response.StatusCode;
+                int statusCodeNumber = (int)statusCode;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    ContainerModel? dataContent = JsonConvert.DeserializeObject&lt;ContainerModel&gt;(content);
+
+                    if (dataContent is not null)
+                    {
+                        serviceResponse.Data = dataContent;
+                        serviceResponse.isSuccess = true;
+                        serviceResponse.statusCode = statusCodeNumber;
+                        serviceResponse.message = $&quot;Success&quot;;
+                    }
+
+                }
+
+                else if (statusCodeNumber.Equals(400))
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.isSuccess = false;
+                    serviceResponse.statusCode = statusCodeNumber;
+                    serviceResponse.message = $&quot;Could not find Domain name&quot;;
+                }
+
+                else
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.isSuccess = false;
+                    serviceResponse.statusCode = statusCodeNumber;
+                    serviceResponse.message = $&quot;Ensure the right Domain name is entered&quot;;
+                }
+            }
+
+            return serviceResponse;
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,9,12,85,1],[13,9,13,89,1],[16,9,16,10,1],[17,13,17,45,1],[19,20,19,45,1],[20,13,20,14,1],[22,17,22,107,1],[24,17,24,50,1],[25,17,25,18,1],[26,21,26,81,1],[28,21,28,70,1],[30,17,30,18,1],[31,13,31,14,1],[33,13,33,29,1],[34,9,34,10,1],[37,9,37,10,1],[39,13,39,67,1],[41,20,41,45,1],[42,13,42,14,1],[44,17,44,77,1],[46,17,46,75,1],[48,17,48,65,1],[49,17,49,56,1],[51,17,51,50,1],[52,17,52,18,1],[53,21,53,81,1],[55,21,55,106,1],[57,21,57,49,1],[58,21,58,22,1],[59,25,59,60,1],[60,25,60,58,1],[61,25,61,71,1],[62,25,62,62,1],[63,21,63,22,1],[65,17,65,18,1],[67,22,67,55,1],[68,17,68,18,0],[69,21,69,49,0],[70,21,70,55,0],[71,21,71,67,0],[72,21,72,76,0],[73,17,73,18,0],[76,17,76,18,1],[77,21,77,49,1],[78,21,78,55,1],[79,21,79,67,1],[80,21,80,89,1],[81,17,81,18,1],[82,13,82,14,1],[84,13,84,36,1],[85,9,85,10,1],[88,9,88,10,1],[89,13,89,67,1],[91,20,91,45,1],[92,13,92,14,1],[94,17,94,71,1],[96,17,96,75,1],[98,17,98,65,1],[99,17,99,56,1],[101,17,101,50,1],[102,17,102,18,1],[103,21,103,81,1],[105,21,105,106,1],[107,21,107,49,1],[108,21,108,22,1],[109,25,109,60,1],[110,25,110,58,1],[111,25,111,71,1],[112,25,112,62,1],[113,21,113,22,1],[115,17,115,18,1],[117,22,117,55,1],[118,17,118,18,1],[119,21,119,49,1],[120,21,120,55,1],[121,21,121,67,1],[122,21,122,77,1],[123,17,123,18,1],[126,17,126,18,0],[127,21,127,49,0],[128,21,128,55,0],[129,21,129,67,0],[130,21,130,90,0],[131,17,131,18,0],[132,13,132,14,1],[134,13,134,36,1],[135,9,135,10,1]]);
+    </script>
+  </body>
+</html>

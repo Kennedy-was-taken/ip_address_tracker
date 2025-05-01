@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\Kennedy\Documents\Projects\Frontend_Mentor\vs_2022\ip_address_tracker\ip_address_tracker\Services\ValidateService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+
+
+using ip_address_tracker.Interfaces;
+
+namespace ip_address_tracker.Services
+{
+    public class ValidateService : IValidateInterface
+    {
+
+        public bool isIPAddress(string ipAddress)
+        {
+            string[] parts = ipAddress.Split(&#39;.&#39;);
+
+            if (parts.Length != 4)
+            {
+                return false;
+            }
+
+            // Checks if the octat is numerical and is in range
+            foreach (string part in parts)
+            {
+                if (!int.TryParse(part, out int num))
+                {
+                    return false;
+                }
+
+                if (num &lt; 0 || num &gt; 255)
+                {
+                    return false;
+                }
+            }
+
+           
+            return true;
+        }
+
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,9,11,10,1],[12,13,12,51,1],[14,13,14,35,1],[15,13,15,14,1],[16,17,16,30,1],[20,13,20,20,1],[20,22,20,33,1],[20,34,20,36,1],[20,37,20,42,1],[21,13,21,14,1],[22,17,22,54,1],[23,17,23,18,1],[24,21,24,34,1],[27,17,27,42,1],[28,17,28,18,0],[29,21,29,34,0],[31,13,31,14,1],[34,13,34,25,1],[35,9,35,10,1]]);
+    </script>
+  </body>
+</html>

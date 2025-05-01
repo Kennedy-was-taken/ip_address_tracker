@@ -7,19 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Media\landscape\desktopMedia.css" />
-    <Content Remove="wwwroot\Media\landscape\tabletMedia.css" />
-    <Content Remove="wwwroot\Media\portrait\tabletMedia.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Media\landscape\desktopMedia.css" />
     <None Include="wwwroot\Media\landscape\tabletMedia.css" />
     <None Include="wwwroot\Media\portrait\tabletMedia.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
